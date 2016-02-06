@@ -1,0 +1,124 @@
+﻿<Window x:Name="win" x:Class="DoPing.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DoPing"
+        mc:Ignorable="d"
+        Title="PingTool with alarm notificaton" Height="540" Width="600" MaxWidth="600" MaxHeight="540" ResizeMode="CanMinimize" Closing="win_Closing" >
+    <Grid  >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+
+            <RowDefinition Height="440"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"></ColumnDefinition>
+            <ColumnDefinition  Width="250"></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+        <StackPanel  Height="38" Background="DarkSlateBlue" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+            <TextBlock   HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="Ping Utility Tool + Notification"></TextBlock>
+
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Label FontWeight="DemiBold"  VerticalAlignment="Center"
+               HorizontalAlignment="Center">Log</Label>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Label  FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25">Host/IP</Label>
+
+        </StackPanel>
+
+       
+        <StackPanel Width="240"  Grid.Row="2" Grid.Column="1" >
+            <TextBox Name="txt1" Width="180" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+            <Separator Opacity="0" Height="5"></Separator>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="ping_btn" Width="60" Height="25" Content="Ping" Click="Button_Click"></Button>
+                <Button Width="60" Height="25" Content=" new  " Click="Button_Click_1"></Button>
+                <Button Name="reset_btn" Width="60" Height="25" Content=" reset " Click="Button_Click_2"></Button>
+
+            </StackPanel>
+
+            <StackPanel  >
+                <Label FontWeight="DemiBold" HorizontalAlignment="Left">Display</Label>
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type CheckBox}">
+                            <Setter Property="Margin" Value="0,0,10,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <CheckBox Name="ttl_chkbox" IsChecked="False" Checked="ttl_chkbox_Checked" Unchecked="ttl_chkbox_Unchecked" >total time live</CheckBox>
+                    <CheckBox Name="rtt_chkbox" IsChecked="True" Checked="rtt_chkbox_Checked" Unchecked="rtt_chkbox_Unchecked" >round trip time</CheckBox>
+                    <CheckBox Name="len_chkbox" IsChecked="False"  Checked="len_chkbox_Checked" Unchecked="len_chkbox_Unchecked" >length of message</CheckBox>
+
+                </StackPanel>
+            </StackPanel>
+
+
+
+            <StackPanel Height="30" Orientation="Horizontal">
+                <TextBlock FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"> msg size (in byte)-</TextBlock>
+
+                <TextBox HorizontalAlignment="Right" Width="99" x:Name="mtu_box"  />
+            </StackPanel>
+            <Separator Height="5" Opacity="0"></Separator>
+            <StackPanel Height="30" Orientation="Horizontal">
+                <TextBlock FontWeight="DemiBold" HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"> Timeout (in sec)-</TextBlock>
+
+                <Separator Width="8" Opacity="0"></Separator>
+                <TextBox HorizontalAlignment="Right" Width="100" x:Name="timeout_box" />
+            </StackPanel>
+
+            <Separator Height="5" Opacity="0"></Separator>
+
+            <StackPanel Height="35" Orientation="Horizontal" >
+                <TextBlock HorizontalAlignment="Left"   FontWeight="DemiBold">Last timedout-</TextBlock>
+                <Separator Opacity="0" Width="5"></Separator>
+                <TextBlock HorizontalAlignment="Left" Text="" FontSize="10" Foreground="Red" Name="lst_time_out"></TextBlock>
+            </StackPanel>
+
+            <StackPanel Height="35" Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock FontWeight="DemiBold"  Name="notify_textblock" VerticalAlignment="Center">Notify me after</TextBlock>
+                <Separator Opacity="0" Width="5"></Separator>
+
+                <TextBox Width="35" Height="25" Name="notify_box"></TextBox>
+                <Separator Opacity="0" Width="5"></Separator>
+                <TextBlock VerticalAlignment="Center">packet lost</TextBlock>
+            </StackPanel>
+            <Separator Height="10" Opacity="0"></Separator>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <TextBlock VerticalAlignment="Center" FontWeight="DemiBold">packet lost history</TextBlock>
+                <Separator Width="10" Opacity="0"></Separator>
+                <Button Width="60" Height="25" Click="Button_Click_3">history</Button>
+                
+            </StackPanel>
+            <Separator Height="10" Opacity="0"></Separator>
+            <StackPanel Height="35" VerticalAlignment="Center">
+                <Button HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" Width="100"
+                        Height="35" Name="stop_alarm_btn"
+                        Visibility="Visible" Click="stop_alarm_btn_Click">Stop alarm</Button>
+            </StackPanel>
+
+            <Separator Opacity="0" Height="10"></Separator>
+            <StackPanel  Height="40" HorizontalAlignment="Left" >
+                <TextBlock ><Span FontWeight="Black" >Developer-</Span> Anshuman Singh</TextBlock>
+                <TextBlock  ><Span   FontWeight="Black">Email-</Span>anshumanpbh@gmail.com</TextBlock>
+            </StackPanel>
+
+        </StackPanel>
+
+        <StackPanel Width="340" Height="440" Grid.Row="2" Grid.Column="0">
+            <ListView BorderThickness="0.5" BorderBrush="CadetBlue" Background="LightCoral" Name="list1" Width="340" Height="440"></ListView>
+
+        </StackPanel>
+    </Grid>
+</Window>
